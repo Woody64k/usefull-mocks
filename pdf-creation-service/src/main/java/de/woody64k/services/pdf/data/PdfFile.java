@@ -15,7 +15,11 @@ public class PdfFile {
     }
 
     public void setName(String name) {
-	this.name = name;
+	if (name.endsWith(".pdf")) {
+	    this.name = name;
+	} else {
+	    this.name = name + ".pdf";
+	}
     }
 
     public byte[] getContent() {

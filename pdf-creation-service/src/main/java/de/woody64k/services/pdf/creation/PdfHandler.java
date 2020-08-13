@@ -33,7 +33,7 @@ public class PdfHandler {
 	}
 
 	FileUtils fileUtils = new FileUtils();
-	URL template = fileUtils.findFileOnClasspath(String.format("templates/%s", templateName));
+	URL template = fileUtils.findFileOnClasspath(String.format("templates/%s.pdf", templateName));
 	PdfFile pdfFile = replaceAll(template, replacements);
 	pdfFile.setName(templateName);
 	return pdfFile;
