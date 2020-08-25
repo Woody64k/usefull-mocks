@@ -1,0 +1,9 @@
+server:
+  servlet:
+    contextPath: /ldap-mock
+spring:
+  ldap:
+    hostname: localhost
+    principal: notMyUser
+    credentials: notMyPassword
+    lookup-root: dn=woody64k

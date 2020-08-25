@@ -1,0 +1,12 @@
+server:
+  servlet:
+    contextPath: /ldap-mock
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: notMyUser
+    password: notMyPassword
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true

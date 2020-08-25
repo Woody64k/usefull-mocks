@@ -10,20 +10,17 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>de.woody64k.services</groupId>
-	<artifactId>pdf-creation-service</artifactId>
+	<artifactId>ldap-connection-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pdf-creation-service</name>
-	<description>A Service to create PDFs from incomming data.</description>
+	<name>ldap-connection-service</name>
+	<description>A Service to connect to LADP and load user data.</description>
+	<packaging>war</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
 		<!-- Swagger for Spring -->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -36,17 +33,10 @@
 			<version>2.9.2</version>
 		</dependency>
 
-		<!-- Handling of PDFs -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>pdfbox</artifactId>
-			<version>2.0.8</version>
-			<type>jar</type>
 		</dependency>
 
 		<!-- Test Dependencies -->
@@ -68,6 +58,49 @@
 		</dependency>
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>standalone</id>
+			<activation>
+				<property>
+					<name>!prod</name>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-web</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>on-server</id>
+			<activation>
+				<property>
+					<name>prod</name>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-web</artifactId>
+					<exclusions>
+						<exclusion>
+							<groupId>org.springframework.boot</groupId>
+							<artifactId>spring-boot-starter-tomcat</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+				<!-- We need to include the javax.servlet API specs, the implementation 
+					will be provided by Wildfly / JBoss / Tomcat -->
+				<dependency>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 	<build>
 		<plugins>
 			<plugin>

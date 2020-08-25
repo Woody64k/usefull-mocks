@@ -10,10 +10,11 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>de.woody64k.services</groupId>
-	<artifactId>pdf-creation-service</artifactId>
+	<artifactId>email-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pdf-creation-service</name>
-	<description>A Service to create PDFs from incomming data.</description>
+	<name>email-service</name>
+	<description>A Service send emails.</description>
+	<packaging>war</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -23,6 +24,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 		<!-- Swagger for Spring -->
 		<dependency>
@@ -36,17 +41,10 @@
 			<version>2.9.2</version>
 		</dependency>
 
-		<!-- Handling of PDFs -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>pdfbox</artifactId>
-			<version>2.0.8</version>
-			<type>jar</type>
 		</dependency>
 
 		<!-- Test Dependencies -->

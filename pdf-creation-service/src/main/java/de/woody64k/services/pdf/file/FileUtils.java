@@ -6,6 +6,8 @@ import java.net.URL;
 
 import org.apache.commons.io.IOUtils;
 
+import de.woody64k.services.pdf.data.FileHolder;
+
 public class FileUtils {
 
     public URL findFileOnClasspath(String name) {
@@ -19,17 +21,15 @@ public class FileUtils {
 
     }
 
-    public byte[] readFileOnClasspath(String name) {
-	return readFileFromUrl(findFileOnClasspath(name));
+    public FileHolder readFileOnClasspath(String name) {
+	return readFileFromUrl(name, findFileOnClasspath(name));
     }
 
-    public byte[] readFileFromUrl(URL url) {
-	byte[] bytes = null;
+    public FileHolder readFileFromUrl(String name, URL url) {
 	try (InputStream is = url.openStream()) {
-	    bytes = IOUtils.toByteArray(is);
+	    return new FileHolder(name, IOUtils.toByteArray(is));
 	} catch (IOException e) {
 	    throw new RuntimeException(String.format("File could not read from path:", url.getPath()));
 	}
-	return bytes;
     }
 }
